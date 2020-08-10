@@ -1,0 +1,9 @@
+My Profile.
+
+
+Friend requests:
+
+<% @friend_requests.each do|friend_request| %>
+    <%= friend_request.from_user.email %>
+<% end %>
+

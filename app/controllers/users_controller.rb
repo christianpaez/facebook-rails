@@ -62,6 +62,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    @friend_requests = FriendRequest.includes(:to_user).where(to_user_id: current_user.id)
+  end
+
+  def friends
+    @friends = User.where(friend_id: current_user.id)
+  end
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
