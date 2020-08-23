@@ -70,6 +70,22 @@ class UsersController < ApplicationController
     @friends = User.where(friend_id: current_user.id)
   end
   
+  def friend_requests
+    @friend_requests = FriendRequest.includes(:from_user).where(to_user_id: current_user.id)
+  end
+
+  def add_to_friends
+    friend  = User.find(params[:id])
+    begin
+    current_user.friends << friend
+    FriendRequest.find_by(to_user_id: current_user.id, from_user_id: friend.id).destroy
+    redirect_to friends_path, flash: {notice: "Added #{friend.email} to friends!"}
+    rescue
+      redirect_to friend_requests_path, flash: {error: "Chosen friend Not found!"}
+    end
+    
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

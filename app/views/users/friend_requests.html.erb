@@ -1,0 +1,10 @@
+
+
+
+My friend requests:
+
+<% @friend_requests.each do|request| %>
+    <%= request.from_user.email %>
+    <%= link_to 'Add to Friends', "add_to_friends/#{request.from_user.id}", method: :post %>
+<% end %>
+

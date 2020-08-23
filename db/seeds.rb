@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-FriendRequest.destroy_all
 User.destroy_all
 
 main_user = User.create({
@@ -16,7 +15,7 @@ main_user = User.create({
 })
 
 main_user.save
-300.times do|index|
+30.times do|index|
     user = User.create({
         email: Faker::Internet.email, 
         description: Faker::Lorem.paragraph,
@@ -24,14 +23,15 @@ main_user.save
     })
     user.save
     
-    # create friend requests
-    FriendRequest.create({
-        from_user_id: user.id,
-        to_user_id: main_user.id
-    })
-    if index < 100     
+    if index < 10     
         # add friends
-        main_user.friends << user
+        main_user.friends << user  
+    else
+        # create friend requests
+        FriendRequest.create({
+            from_user_id: user.id,
+            to_user_id: main_user.id
+        })
     end
 
 end
